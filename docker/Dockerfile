@@ -1,19 +1,20 @@
 FROM python:3.11-buster as builder
 
 ENV PYTHONUNBUFFERED 1
-ENV POETRY_VERSION 1.6.1
+ENV POETRY_VERSION=1.6.1
 ENV POETRY_NO_INTERACTION=1 \
     POETRY_VIRTUALENVS_IN_PROJECT=1 \
     POETRY_VIRTUALENVS_CREATE=1 \
     POETRY_CACHE_DIR=/tmp/poetry_cache
+ENV POETRY_HOME=/opt/poetry
 
 # Install Poetry
-RUN pip install "poetry==$POETRY_VERSION"
+RUN curl -sSL https://install.python-poetry.org | python3 -
 
 WORKDIR /app
 COPY pyproject.toml README.md poetry.toml poetry.lock ./
 
-RUN poetry install --without dev --no-root && rm -rf $POETRY_CACHE_DIR
+RUN ${POETRY_HOME}/bin/poetry install --without dev --no-root && rm -rf $POETRY_CACHE_DIR
 
 RUN curl -L https://github.com/golang-migrate/migrate/releases/download/v4.16.2/migrate.linux-amd64.tar.gz | tar xvz
 
