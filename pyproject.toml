@@ -1,14 +1,23 @@
 [tool.poetry]
-name = "fastapi-test"
+name = "fast-todo"
 version = "0.1.0"
 description = ""
 authors = ["Hugo PICQ <picq.hugo@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.11"
 fastapi = "^0.103.2"
+uvicorn = {extras = ["standard"], version = "^0.23.2"}
+asyncpg = "^0.28.0"
+pydantic = {extras = ["email"], version = "^2.4.2"}
+bcrypt = "^4.0.1"
+python-dotenv = "^1.0.0"
+pyjwt = "^2.8.0"
+httpx = "^0.25.0"
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.2"
 
 [build-system]
 requires = ["poetry-core"]
